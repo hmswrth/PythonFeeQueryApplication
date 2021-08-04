@@ -2,6 +2,7 @@
 
 ## Requirements
  - [Python 3.x](https://www.python.org/downloads/)
-## Run
+## How to Run
+ - Fire up your terminal
  - cd to the project location
- -`./main.py`
+ - In the terminal :  `./main.py`
