@@ -2,8 +2,8 @@ import json
 import os
 
 # function that parses the json file and returns the json object
-def parseJson():
-   with open (os.getcwd() + "\Resources\Fee.json") as jsonFile:
+def parseJson(filename):
+   with open (os.getcwd() + "\\Resources\\" + filename + ".json") as jsonFile:
       data = json.load(jsonFile)
       return data
 
@@ -48,7 +48,6 @@ def pick_level(levels):
       # check for invalid input
       if(level_chosen <1 or level_chosen > 4):
          return -1
-      level_chosen = 1
    else:
       for i in range(len(list(levels))):
          print(i+1, list(levels)[i])
@@ -61,7 +60,7 @@ def pick_level(levels):
 
 def main():
    while True:
-      data = parseJson()
+      data = parseJson("fee")
       print("Please choose from the following options:")
       for i in range(len(list(data))):
          print(i+1 , list(data)[i])
@@ -87,10 +86,55 @@ def main():
       # print(levels)
       # print(list(levels), len(list(levels)))
       level_chosen = pick_level(levels)
+         
       if(level_chosen == -1):
          print('You chose an invalid option for the list of available course levels. \nPlease review the available options and try again')
          continue
-      print("Your cost of fee is : " , levels[list(levels)[level_chosen-1]]['amount'])
+      if(list(levels)[0] == 'ALL_LEVEL'):
+         amount  = levels[list(levels)[1-1]]['amount'];
+      else:
+         amount = levels[list(levels)[level_chosen-1]]['amount']
+         
+      if(list(levels)[0] == 'ALL_LEVEL'):
+         gst = levels[list(levels)[1-1]]['gst'];
+      else:
+         gst = levels[list(levels)[level_chosen-1]]['gst'];
+      # print(amount)
+      # print(gst)
+      amount += amount * (gst/100)
+      
+      data2 = parseJson("student")
+      # for i in range(len(list(data2))):
+      #    print(i+1 , list(data2)[i])
+         
+      # print (list(nationality)[nationality_chosen-1])
+      
+      chosen_nationality = list(nationality)[nationality_chosen-1]
+      chosen_fee = list(data)[fee_chosen -1]
+      levels_dict = {1: "UG" , 2: "PG" , 3:"DIPLOMA" , 4:"Ph.D"}
+      chosen_level = levels_dict[level_chosen]
+      
+      # for i in data2:
+      #    # print(i)
+      #    # print(i['name'.
+      #    # print(len(i['type']) ,  len(chosen_fee))
+      #    if(course_chosen == -1):
+      #       if(i['country'] == chosen_nationality and i['type'] == chosen_fee  ):
+      #          print(i['name'] , end = " ")
+      #    else:
+      #       if(i['country'] == chosen_nationality and i['type'] == chosen_fee and i['course'] == chosen_course  ):
+      #          print(i['name'], end = " ")
+      # for i in data2:
+      #    print(i['country'] , chosen_nationality)
+      #    print(i['type'] ,  chosen_fee)
+      #    print(i['course'] , chosen_level)
+      #    print("---------------------------------------")
+         
+      for i in data2:
+         if(i['country'] == chosen_nationality and i['type'] == chosen_fee and i['course'] == chosen_level  ):
+               print(i['name'], end = " ")
+      
+      print("Your cost of fee (inc gst) is : " , amount)
       break
 
 main()

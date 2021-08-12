@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Sharath",
+    "country": "INDIAN",
+    "type": "Application Fee",
+    "course": "UG"
+  },
+  {
+    "name": "Hemanth",
+    "country": "INDIAN",
+    "type": "Application Fee",
+    "course": "UG"
+  },
+  {
+    "name": "Prasanth",
+    "country": "INDIAN",
+    "type": "Exam Fee",
+    "course": "PG"
+  }
+]
